@@ -56,4 +56,4 @@ The repository represents learning in motion rather than a finalized product.
 
 ## Status
 
-🟡 Active — <MONTH YEAR>
+🟡 Active — February 2026
