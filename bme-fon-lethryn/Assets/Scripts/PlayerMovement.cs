@@ -4,19 +4,21 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float Speed = 5;
+    public float AscendSpeed = 5;
     public float RotationSpeed = 5;
 
     private InputAction moveAction;
+    private InputAction jumpAction;
+    private InputAction crouchAction;
 
-    [SerializeField]
-    private AnimationCurve AnimCurve;
-
-    private Rigidbody rb;
+    //private Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
-        rb = GetComponent<Rigidbody>();
+        jumpAction = InputSystem.actions.FindAction("Jump");
+        crouchAction = InputSystem.actions.FindAction("Crouch");
+        //rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,28 +26,17 @@ public class PlayerMovement : MonoBehaviour
     {
         var moveValue = moveAction.ReadValue<Vector2>();
 
-        // Cast a ray downwards from the object's position
-        var ray = new Ray(transform.position, Vector3.down);
-        RaycastHit hit;
+        var deltaSpeed = moveValue.y * Speed * Time.fixedDeltaTime;
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            var deltaSpeed = moveValue.y * Speed * Time.fixedDeltaTime;
-            rb.MovePosition(new Vector3(rb.position.x, hit.point.y + 1.0f, rb.position.z) + gameObject.transform.forward * deltaSpeed);
+        var ascendValue = jumpAction.IsPressed() ? 1 : 0;
+        var descendValue = crouchAction.IsPressed() ? -1 : 0;
 
-            var slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+        var ascendSpeed = (ascendValue + descendValue) * AscendSpeed * Time.fixedDeltaTime;
 
-            var rotationRef = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, hit.normal),
-                AnimCurve.Evaluate(0.25f));
+        transform.position += gameObject.transform.forward * deltaSpeed + gameObject.transform.up * ascendSpeed;
 
-            Debug.Log(slopeAngle);
-            Debug.Log(hit.normal);
-            Debug.Log(transform.up);
-            Debug.Log(rotationRef);
+        var cameraRotation = Quaternion.Euler(0.0f, moveValue.x * RotationSpeed * Time.fixedDeltaTime, 0.0f);
 
-            var deltaRotation = Quaternion.Euler(rotationRef.eulerAngles.x, moveValue.x * RotationSpeed * Time.fixedDeltaTime, rotationRef.eulerAngles.z);
-
-            rb.MoveRotation(rb.rotation * deltaRotation);
-        }
+        transform.rotation *= cameraRotation;
     }
 }
