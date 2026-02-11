@@ -28,11 +28,11 @@ public class TreeCreator : MonoBehaviour
         //    }
         //}
 
-        for (var i = 0; i < TreeCount; i++)
-        {
-            var treePosition = GetTerrainPosition();
-            CreateTree(treePosition);
-        }
+        //for (var i = 0; i < TreeCount; i++)
+        //{
+        //    var treePosition = GetTerrainPosition();
+        //    CreateTree(treePosition);
+        //}
         
     }
 
