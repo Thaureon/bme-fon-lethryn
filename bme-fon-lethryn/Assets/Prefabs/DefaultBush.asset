@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e68ecc09b47dc045ae55d525585ae07, type: 3}
   m_Name: DefaultBush
   m_EditorClassIdentifier: 
-  BushPrefab: {fileID: 3268282515825517277, guid: d0d36fd93f6176b4baf39085cd0c96a7, type: 3}
-  Position: {x: 0, y: 0, z: 0}
-  Scale: {x: 0, y: 0, z: 0}
+  PlantPrefab: {fileID: 3268282515825517277, guid: d0d36fd93f6176b4baf39085cd0c96a7, type: 3}
+  MinSpreadAge: 8
+  MaxSpreadAge: 12
+  SpreadCount: 3
+  SpreadDistance: 5
+  MaxAge: 15

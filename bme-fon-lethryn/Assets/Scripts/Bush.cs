@@ -1,10 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bush", menuName = "Lethryn/Bush")]
-public class Bush : ScriptableObject
+public class Bush
 {
-    [SerializeField] public GameObject BushPrefab;
-    [SerializeField] public bool Exists;
-    [SerializeField] public Vector3 Position;
-    [SerializeField] public Vector3 Scale;
+    public int Age;
+    public int SpreadAge;
+    public int SpreadCount;
+    public int SpreadDistance;
+    public int MaxAge;
+    public string Status;
+    public string Name;
+    public bool Exists;
+    public Vector3 Position;
+    public Vector3 Scale;
 }
